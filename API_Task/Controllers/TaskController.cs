@@ -63,6 +63,20 @@ namespace API_Task.Controllers
             return Ok(taskPut);
         }
 
+        [HttpGet("GetByDate/{Date}")]
+        public IActionResult GetByDate(DateTime date)
+        {
+            var task = _taskContext.tasks.Find(date);
+
+            if(date == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
+
 
 
         [HttpGet("GetById/{id}")]

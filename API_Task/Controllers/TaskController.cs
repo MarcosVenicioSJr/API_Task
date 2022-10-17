@@ -27,7 +27,20 @@ namespace API_Task.Controllers
             return Ok(task);
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeleteTask(int id)
+        {
+            var task = _taskContext.tasks.Find(id);
 
+            if(task == null)
+            {
+                return NotFound();
+            }
+
+            _taskContext.tasks.Remove(task);
+            return NoContent();
+
+        }
 
 
         [HttpGet("GetById/{id}")]

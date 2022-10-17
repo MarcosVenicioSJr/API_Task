@@ -32,7 +32,7 @@ namespace API_Task.Controllers
         {
             var task = _taskContext.tasks.Find(id);
 
-            if(task == null)
+            if (task == null)
             {
                 return NotFound();
             }
@@ -40,6 +40,27 @@ namespace API_Task.Controllers
             _taskContext.tasks.Remove(task);
             return NoContent();
 
+        }
+
+        [HttpPut("PutTask/{id}")]
+        public IActionResult PutTask(int id, TaskModels task)
+        {
+            var taskPut = _taskContext.tasks.Find(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            taskPut.Title = task.Title;
+            taskPut.Description = task.Description;
+            taskPut.Status = task.Status;
+            taskPut.Date = task.Date;
+
+            _taskContext.tasks.Update(taskPut);
+            _taskContext.SaveChanges();
+
+            return Ok(taskPut);
         }
 
 

@@ -1,4 +1,5 @@
-﻿using API_Task.Models;
+﻿using API_Task.Context;
+using API_Task.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,26 @@ namespace API_Task.Controllers
     [Route("[Controller]")]
     public class TaskController : ControllerBase
     {
+        private readonly TaskContext _taskContext;
+
+        public TaskController(TaskContext context)
+        {
+            _taskContext = context;
+        }
+
         [HttpPost("Create")]
         public IActionResult Create(TaskModels task)
         {
-
+            _taskContext.Add(task);
+            _taskContext.SaveChanges();
+            return Ok(task);
         }
 
 
         [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
-
+            
             return Ok();
         }
     }

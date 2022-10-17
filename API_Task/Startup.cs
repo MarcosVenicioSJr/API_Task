@@ -28,7 +28,7 @@ namespace API_Task
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TaskContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Home"))); 
+            services.AddEntityFrameworkSqlServer().AddDbContext<TaskContext>(o => o.UseSqlServer(Configuration.GetConnectionString("Home")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

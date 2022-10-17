@@ -63,12 +63,12 @@ namespace API_Task.Controllers
             return Ok(taskPut);
         }
 
-        [HttpGet("GetByDate/{Date}")]
+        [HttpGet("GetByDate/{date}")]
         public IActionResult GetByDate(DateTime date)
         {
-            var task = _taskContext.tasks.Find(date);
+            var task = _taskContext.tasks.Where(x => x.Date == date);
 
-            if(date == null)
+            if (date == null)
             {
                 return NotFound();
             }
@@ -76,7 +76,19 @@ namespace API_Task.Controllers
             return Ok(task);
         }
 
+        [HttpGet("GetByTitle/{title}")]
+        public IActionResult GetByTitle(string title)
+        {
+            var task = _taskContext.tasks.Where(x => x.Title.Contains(title));
 
+            if (title == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+
+        }
 
 
         [HttpGet("GetById/{id}")]

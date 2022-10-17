@@ -28,11 +28,13 @@ namespace API_Task.Controllers
         }
 
 
+
+
         [HttpGet("GetById/{id}")]
         public IActionResult GetById(int id)
         {
-            
-            return Ok();
+            var task = _taskContext.tasks.Find(id);
+            return Ok(task);
         }
     }
 }
